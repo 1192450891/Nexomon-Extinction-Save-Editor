@@ -1,0 +1,78 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Save-Editor/1.6.1.0": {
+        "dependencies": {
+          "JetBrains.Annotations": "2022.1.0",
+          "Newtonsoft.Json": "13.0.1",
+          "PropertyChanged.Fody": "3.4.1"
+        },
+        "runtime": {
+          "Save-Editor.dll": {}
+        }
+      },
+      "Fody/6.6.2": {},
+      "JetBrains.Annotations/2022.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "assemblyVersion": "4242.42.42.42",
+            "fileVersion": "2022.1.0.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
+          }
+        }
+      },
+      "PropertyChanged.Fody/3.4.1": {
+        "dependencies": {
+          "Fody": "6.6.2"
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Save-Editor/1.6.1.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Fody/6.6.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/PISk/t+lnNm0tiAc3xer3wp7HVnDCkX7gyTzljbC9kygUBJpYU2V1P/MjJeu/C6JhR40QXr9XdoxvqRmaHlhg==",
+      "path": "fody/6.6.2",
+      "hashPath": "fody.6.6.2.nupkg.sha512"
+    },
+    "JetBrains.Annotations/2022.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig==",
+      "path": "jetbrains.annotations/2022.1.0",
+      "hashPath": "jetbrains.annotations.2022.1.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    },
+    "PropertyChanged.Fody/3.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e0BVdf9bFdjvOMEcYff5jUdvMC36ioHN1Lp7bW1bz0Qjg3rqsfCUhaaIu+K7R9TKBGeX7PlfqAeMqKyrD9cBXw==",
+      "path": "propertychanged.fody/3.4.1",
+      "hashPath": "propertychanged.fody.3.4.1.nupkg.sha512"
+    }
+  }
+}

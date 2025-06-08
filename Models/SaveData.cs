@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Save_Editor.Resources.Models;
 
 namespace Save_Editor.Models {
     public class SaveData : NotifyPropertyChangedImpl {
@@ -35,15 +36,35 @@ namespace Save_Editor.Models {
         public          int                                 volumeSFX       { get; set; }
         public          bool                                autoSaveEnabled { get; set; }
         public          string                              languageId      { get; set; }
+        
+
+
+        public int q1 { get; set; }
+
+
+        public string total_coins_accumulated_Str { get; set; }
+        public          int                                 totalCoinsAccumulated { get; set; }
+        public string total_coins_spent_Str { get; set; }
+        public          int                                 totalCoinsSpent  { get; set; }
+        public string total_boulders_broken_Str { get; set; }
+        public          int                                 totalBouldersBroken { get; set; }
+        public string total_meals_tossedd_Str { get; set; }
+        public          int                                 totalMealsTossedd { get; set; }
+        public string total_shards_sold_Str { get; set; }
+        public          int                                 totalShardsSold  { get; set; }
+        
         public          ObservableCollection<Monster>       party           { get; } = new ObservableCollection<Monster>();
         public          ObservableCollection<Box>           storage         { get; } = new ObservableCollection<Box>();
         public          ObservableCollection<InventoryItem> items           { get; } = new ObservableCollection<InventoryItem>();
         public          Wallet                              wallet          { get; }
-
+        public          int                                 beatenTamerCount{ get; set; }
+        public         ObservableCollection<BeatenTamer>    beatenTamers    { get; } = new ObservableCollection<BeatenTamer>();
+        
+        public          int                                 miningCount     { get; set; }
+        public         ObservableCollection<Mineral>        minerals       { get; } = new ObservableCollection<Mineral>();
+        
         public readonly List<byte> remainderBytes;
-
-        //public         BeatenTamers                    beatenTamers;
-        //public         Mining                          mining;
+        
         //public         Rematcher                       rematcher;
         //public         Achievements                    achievements;
         //public         PermanentlyDestroyedEntities    permanentlyKilledEntities;
@@ -97,6 +118,28 @@ namespace Save_Editor.Models {
 
             wallet = reader.ReadWallet();
 
+            beatenTamerCount = reader.ReadInt32();
+            for (var i = beatenTamerCount; i > 0; i--) {
+                beatenTamers.Add(reader.ReadBeatenTamer());
+            }
+            
+            miningCount = reader.ReadInt32();
+            for (var i = miningCount; i > 0; i--) {
+                minerals.Add(reader.ReadMineral());
+            }
+            q1 = reader.ReadInt32();
+            total_coins_accumulated_Str = reader.ReadString();
+            totalCoinsAccumulated = reader.ReadInt32();
+            total_coins_spent_Str = reader.ReadString();
+            totalCoinsSpent = reader.ReadInt32();
+            total_boulders_broken_Str = reader.ReadString();
+            totalBouldersBroken = reader.ReadInt32();
+            total_meals_tossedd_Str = reader.ReadString();
+            totalMealsTossedd = reader.ReadInt32();
+            total_shards_sold_Str = reader.ReadString();
+            totalShardsSold = reader.ReadInt32();
+
+            
             // We don't need to save the saveSize since the remainder has what we need to write.
             if (saveSize == null) {
                 remainderBytes = reader.ReadRemainderAsByteArray();
@@ -111,6 +154,7 @@ namespace Save_Editor.Models {
                 }
             }
         }
+
     }
 
     public static partial class Extensions {
@@ -161,6 +205,28 @@ namespace Save_Editor.Models {
 
             writer.Write(saveData.wallet);
 
+            writer.Write(saveData.beatenTamerCount);
+            foreach (var beatenTamer in saveData.beatenTamers) {
+                writer.Write(beatenTamer);
+            }
+            
+            writer.Write(saveData.miningCount);
+            foreach (var mineral in saveData.minerals) {
+                writer.Write(mineral);
+            }
+
+            writer.Write(saveData.q1);
+            writer.Write(saveData.total_coins_accumulated_Str);
+            writer.Write(saveData.totalCoinsAccumulated);
+            writer.Write(saveData.total_coins_spent_Str);
+            writer.Write(saveData.totalCoinsSpent);
+            writer.Write(saveData.total_boulders_broken_Str);
+            writer.Write(saveData.totalBouldersBroken);
+            writer.Write(saveData.total_meals_tossedd_Str);
+            writer.Write(saveData.totalMealsTossedd);
+            writer.Write(saveData.total_shards_sold_Str);
+            writer.Write(saveData.totalShardsSold);
+            
             foreach (var b in saveData.remainderBytes) {
                 writer.Write(b);
             }

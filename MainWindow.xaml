@@ -41,7 +41,7 @@
                     Grid.ColumnSpan="3">
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Player"/>
+                    <TextBlock Text="玩家设置"/>
                 </TabItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -49,6 +49,8 @@
                         <ColumnDefinition Width="Auto"
                                           MinWidth="120"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"
+                                          MinWidth="120"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -73,7 +75,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Name:"/>
+                               Text="名称:"/>
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
                              Margin="8"
@@ -84,7 +86,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Body:"/>
+                               Text="玩家外貌:"/>
                     <ComboBox Grid.Row="1"
                               Grid.Column="1"
                               Margin="8"
@@ -96,7 +98,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Pet Body:"/>
+                               Text="跟随者:"/>
                     <ComboBox Grid.Row="2"
                               Grid.Column="1"
                               Margin="8"
@@ -108,7 +110,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Playtime in Seconds:"/>
+                               Text="游玩时间:"/>
                     <TextBox Grid.Row="3"
                              Grid.Column="1"
                              Margin="8"
@@ -119,7 +121,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Map Id:"/>
+                               Text="所处地图Id:"/>
                     <TextBox Grid.Row="4"
                              Grid.Column="1"
                              Margin="8"
@@ -130,7 +132,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Player X:"/>
+                               Text="玩家 X坐标:"/>
                     <TextBox Grid.Row="5"
                              Grid.Column="1"
                              Margin="8"
@@ -141,7 +143,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Player Y:"/>
+                               Text="玩家 Y坐标:"/>
                     <TextBox Grid.Row="6"
                              Grid.Column="1"
                              Margin="8"
@@ -152,7 +154,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Checkpoint Map Id:"/>
+                               Text="检查点地图Id:"/>
                     <TextBox Grid.Row="7"
                              Grid.Column="1"
                              Margin="8"
@@ -163,7 +165,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Checkpoint X:"/>
+                               Text="检查点地图 X坐标:"/>
                     <TextBox Grid.Row="8"
                              Grid.Column="1"
                              Margin="8"
@@ -174,7 +176,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Checkpoint Y:"/>
+                               Text="检查点地图 Y坐标:"/>
                     <TextBox Grid.Row="9"
                              Grid.Column="1"
                              Margin="8"
@@ -185,7 +187,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Volume (BGM):"/>
+                               Text="BGM音量:"/>
                     <TextBox Grid.Row="10"
                              Grid.Column="1"
                              Margin="8"
@@ -196,7 +198,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Volume (SFX):"/>
+                               Text="SFX音量:"/>
                     <TextBox Grid.Row="11"
                              Grid.Column="1"
                              Margin="8"
@@ -207,7 +209,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="AutoSave Enabled?:"/>
+                               Text="是否启用自动存档:"/>
                     <CheckBox Grid.Row="12"
                               Grid.Column="1"
                               HorizontalAlignment="Center"
@@ -218,7 +220,7 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Language:"/>
+                               Text="语言:"/>
                     <ComboBox Grid.Row="13"
                               Grid.Column="1"
                               Margin="8"
@@ -230,39 +232,72 @@
                                Grid.Column="0"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Coins:"/>
+                               Text="金币数量:"/>
                     <TextBox Grid.Row="14"
                              Grid.Column="1"
                              Margin="8"
                              VerticalAlignment="Center"
                              Text="{Binding SaveData.wallet.coins, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBlock Grid.Row="15"
-                               Grid.Column="0"
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="2"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Diamonds:"/>
-                    <TextBox Grid.Row="15"
-                             Grid.Column="1"
+                               Text="已获得金币:"/>
+                    <TextBox Grid.Row="0"
+                             Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.wallet.diamonds, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.totalCoinsAccumulated, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBlock Grid.Row="16"
-                               Grid.Column="0"
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="2"
                                Margin="8"
                                VerticalAlignment="Center"
-                               Text="Tokens:"/>
-                    <TextBox Grid.Row="16"
-                             Grid.Column="1"
+                               Text="已花费金币:"/>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.wallet.tokens, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.totalCoinsSpent, UpdateSourceTrigger=PropertyChanged}"/>
+                    
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2"
+                               Margin="8"
+                               VerticalAlignment="Center"
+                               Text="已打破石头数:"/>
+                    <TextBox Grid.Row="2"
+                             Grid.Column="3"
+                             Margin="8"
+                             VerticalAlignment="Center"
+                             Text="{Binding SaveData.totalBouldersBroken, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="2"
+                               Margin="8"
+                               VerticalAlignment="Center"
+                               Text="食物投喂次数:"/>
+                    <TextBox Grid.Row="3"
+                             Grid.Column="3"
+                             Margin="8"
+                             VerticalAlignment="Center"
+                             Text="{Binding SaveData.totalMealsTossedd, UpdateSourceTrigger=PropertyChanged}"/>
+                    
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="2"
+                               Margin="8"
+                               VerticalAlignment="Center"
+                               Text="碎片出售数量:"/>
+                    <TextBox Grid.Row="4"
+                             Grid.Column="3"
+                             Margin="8"
+                             VerticalAlignment="Center"
+                             Text="{Binding SaveData.totalShardsSold, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Inventory"/>
+                    <TextBlock Text="物品"/>
                 </TabItem.Header>
                 <DataGrid AutoGenerateColumns="False"
                           CanUserAddRows="True"
@@ -282,13 +317,13 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Party"/>
+                    <TextBlock Text="背包宠物"/>
                 </TabItem.Header>
                 <controls:MonsterDataGrid ItemsSource="{Binding SaveData.party}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Storage"/>
+                    <TextBlock Text="仓库宠物"/>
                 </TabItem.Header>
                 <TabControl ItemsSource="{Binding SaveData.storage}">
                     <TabControl.ItemTemplate>

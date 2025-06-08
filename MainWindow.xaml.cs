@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -34,11 +35,13 @@ namespace Save_Editor {
 
             SetupAppWideBinding(new KeyGesture(Key.S, ModifierKeys.Control), SaveFile); // Ctrl+S.
 
-#if DEBUG
-            SetupAppWideBinding(new KeyGesture(Key.D, ModifierKeys.Control), SetTo80); // Ctrl+D.
-            SetupAppWideBinding(new KeyGesture(Key.J, ModifierKeys.Control), SetCores); // Ctrl+J.
-            SetupAppWideBinding(new KeyGesture(Key.L, ModifierKeys.Control | ModifierKeys.Alt), Resort); // Ctrl+Alt+L.
-#endif
+            // SetupAppWideBinding(new KeyGesture(Key.D, ModifierKeys.Control), SetTo80); // Ctrl+D.
+            // SetupAppWideBinding(new KeyGesture(Key.J, ModifierKeys.Control), SetCores); // Ctrl+J.
+            // SetupAppWideBinding(new KeyGesture(Key.L, ModifierKeys.Control | ModifierKeys.Alt), Resort); // Ctrl+Alt+L.
+            
+            SetupAppWideBinding(new KeyGesture(Key.Q, ModifierKeys.Control), FullAllItems ); // Ctrl+Q.
+            SetupAppWideBinding(new KeyGesture(Key.W, ModifierKeys.Control), AddTheBoxWithAllMonsters); // Ctrl+W.
+            SetupAppWideBinding(new KeyGesture(Key.E, ModifierKeys.Control), BeatAllTamers); // Ctrl+E.
         }
 
         private bool LoadFile() {
@@ -199,6 +202,89 @@ namespace Save_Editor {
             }
         }
 #endif
+
+        private void FullAllItems()
+        {
+            SaveData.items.Clear();
+            foreach (var keyValuePair in Data.ITEM_NAMES_BY_ID)
+            {
+                var item = new InventoryItem
+                {
+                    Quantity = 999,
+                    Id = keyValuePair.Key
+                };
+                SaveData.items.Add(item);
+            }
+        }
+
+        private void AddTheBoxWithAllMonsters()
+        {
+            var boxSlotIndex = 0;
+            var newBox = new Box
+            {
+                name = "All Monsters Box",
+                slots = new Monster[600],
+                size1 = 600
+            };
+            List<int> lastFourSkillIdsCache = new List<int>();
+            for (int i = 1; i <= Data.MONSTER_NAMES_BY_ID.Count; i++)
+            {
+                var id = (short)i;
+                var newMonster = new Monster
+                {
+                    monsterId = id,
+                    nickname = Data.MONSTER_NAMES_BY_ID[id],
+                    level = 99,
+                    hp = 999,
+                    sta = 999,
+                    exp = 0,
+                    useGridAdapter = false,
+                    gridAdapter1 = null,
+                    gridAdapter2 = 0,
+                    gridAdapter3 = 0,
+                    gridAdapter4 = false,
+                    cosmic = true,
+                    harmony = 100,
+                };
+                var monsterData = Data.MONSTERS_BY_ID[id];
+                List<int> lastFourSkillIds;
+                if (monsterData.skill_tree.Count != 0) //只有初始形态怪物有技能树数据
+                {
+                    lastFourSkillIds = monsterData.skill_tree.Values.TakeLast(4).ToList();
+                    lastFourSkillIdsCache = lastFourSkillIds;
+                }
+                else
+                {
+                    lastFourSkillIds = lastFourSkillIdsCache;
+                }
+                foreach (var skillId in lastFourSkillIds)
+                {
+                    var skill = new Skill(skillId);
+                    newMonster.skills.Add(skill);
+                }
+                newBox.slots[boxSlotIndex] = newMonster;
+                boxSlotIndex++;
+                newBox.OnPropertyChanged(nameof(newBox.slots));
+            }
+            SaveData.storage.Add(newBox);
+        }
+
+        private void BeatAllTamers()
+        {
+            SaveData.beatenTamers.Clear();
+            SaveData.beatenTamerCount = Data.TAMERS_BY_ID.Count;
+            foreach (var keyValuePair in Data.TAMERS_BY_ID)
+            {
+                var beatenTamer = new BeatenTamer()
+                {
+                    name = Data.TAMER_NAMES_BY_ID[keyValuePair.Key],
+                    beatenTimes = 2,
+                    unknownData1 = 0,
+                    unknownData2 = 0
+                };
+                SaveData.beatenTamers.Add(beatenTamer);
+            }
+        }
 
         private IEnumerable<Monster> GetAllMonsters() {
             return from box in SaveData.storage
