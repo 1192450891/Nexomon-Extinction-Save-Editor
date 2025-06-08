@@ -1,7 +1,7 @@
-Nexomon: Extinction 存档编辑器
+Nexomon: 重生 存档编辑器
 ---
 
-该文件在Nexomon-Extinction-Save-Editor的基础上增加了更多功能
+该编辑器在Nexomon-Extinction-Save-Editor的基础上增加了更多功能（以下基本基于原版的readme 我进行了翻译以及新功能说明）
 
 原有的功能：
 背包物品：添加/删除、更改数量等。
@@ -10,34 +10,39 @@ Nexomon: Extinction 存档编辑器
 仓库宠物。
 可以更改怪物技能和核心。
 金币等。
-
-新增的功能：
+新增的功能：（所有功能建议通关后使用 防止坏档）
+一键物品全满 Ctrl+Q（所有道具999 包括剧情道具等）
+一键收集所有宠物 Ctrl+W（按一次后仓库会多一个箱子 里面存放了所有异色宠物）
+一键击败所有训练家2次 Ctrl+E
+已获得/花费金币、已打破石头数、食物投喂次数、碎片出售数量等数据修改
 如何使用：
 ---
 
-It'll ask you which file to open on startup.<br>
-Ctrl+S opens the save dialog.<br>
-That's basically it for the interface.
+运行Debug文件夹中的exe文件或使用编译器运行源代码
+会打开一个选择窗口请选择游戏的存档.dat文件
+编辑完成后使用Ctrl+S保存存档文件
 
-The default save location is `C:\Program Files (x86)\Steam\userdata\<user id>\1196630\remote\data-<slot>.dat`<br>
-Do **NOT** bother editing the one in AppData/LocalLow. The one there seems to just be a backup and gets overwritten so ignore it.
 
-"<b>Made for & tested on Steam saves. Other platforms are supported but rely on the community to test, submit saves, etc, as I only own the Steam version.</b><br>"
+Steam版的存档位置在 `Steam\userdata\<user id>\1196630\remote\data-<slot>.dat`
+在 AppData/LocalLow 路径下的只是存档的复制 不需要管
+
+在Steam上制作和测试。支持其他平台，但依赖社区进行测试、提交保存等，因为我只拥有Steam版本
 Supported platforms:
-#NAME?
-#VALUE!
-0
+Steam
+Switch
+PS4
 
-"If you have a save that breaks things, open an issue.<br>"
-Should support saves up to version 23.
+如果编辑器保存出现了存档问题，请创建一个issue提交
+应支持保存到版本23
 
-"### Use at your own risk, keep save backups, etc. I shouldn't need to tell you this part."
+### 使用风险自负，保存备份等。我不需要告诉你这部分。
 
-"I have the rest of the save file mapped out, but didn't bother adding stuff for achievement tracking, plot flags, etc.<br>"
-List of things not yet included that I may get around to that at some point:
-```
-BeatenTamers                    beatenTamers;
-Mining                          mining;
+已经有部分可视化编辑功能，但目前没有添加成就跟踪、剧情标志等编辑功能。
+列出尚未包括的事项，我可能会在某个时候讨论这些事项：
+"（作者最后一次提交是三年前了 我来助你！）
+（每个训练师击败两次和抓所有怪真的很无聊- - ，为了保护大家的肝！）"
+BeatenTamers                    beatenTamers;(击败的训练家 已解析！)
+Mining                          mining;(挖矿数据 已解析！)
 Rematcher                       rematcher;
 Achievements                    achievements;
 PermanentlyDestroyedEntities    permanentlyKilledEntities;
@@ -49,25 +54,24 @@ HashSet<DatabaseMonsters.Entry> ownedMonsters;
 List<int>                       cadiumMapsWithZieglerMiasma;
 ```
 
-"If you want it, there's an 010 template for the start of the save file. (Goes till wallet, same as the save editor.)<br>"
+项目中有一个010模板可以作为存档的开头
 [Save-Template.bt](Save-Template.bt)
 
-Crashes
+崩溃
 ---
 
-"If there's a crash, it'll get recorded in the Windows even viewer. `eventvwr.msc`<br>"
-Open an issue with the crash log.
+如果发生崩溃，它甚至会被记录在Windows查看器中。`eventvwr.msc`<br>
+打开崩溃日志的问题。
 
-"If the exe doesn't appear to do anything when run, check for crash logs there.<br>"
-The other common cause of this is people not extracting the files from the zip before running it. The dlls **MUST** be in the same directory for the program to work.
-Running the exe from the zip will not do this and it'll fail to run.
+如果运行时exe似乎没有做任何事情，请检查那里的崩溃日志。
+另一个常见的原因是人们在运行zip之前没有从zip中提取文件。dlls**必须**在同一目录中，程序才能工作。
+从zip运行exe不会这样做，它将无法运行。
 
-Prerequisites
+先决条件
 ---
 
-.Net Core/Desktop 3.1 Runtime is required to run this:
+运行此操作需要.Net Core/Desktop 3.1运行时：
 - https://dotnet.microsoft.com/download/dotnet-core/3.1
-- (x64) https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-desktop-3.1.7-windows-x64-installer
-- (x86) https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-desktop-3.1.7-windows-x86-installer
-
-(Direct links may be out-of-date. Look for the "Desktop Runtime" section in the right column.)
+-（x64）https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-desktop-3.1.7-windows-x64-installer
+-（x86）https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-desktop-3.1.7-windows-x86-installer
+（直接链接可能已过时。请在右侧列中查找“桌面运行时”部分。）
