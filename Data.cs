@@ -55,12 +55,11 @@ namespace Save_Editor {
             PET_AVATARS.Insert(0, "");
             LANGUAGES = JsonConvert.DeserializeObject<Dictionary<string, object>>(Encoding.UTF8.GetString(Assets.languages)).Keys.ToList();
             
-            string json = Encoding.UTF8.GetString(Assets.tamers);
-            var tempDict = JsonConvert.DeserializeObject<Dictionary<string, BaseTamerData>>(json, new TamerDataConverter());
+            var tempTamersDict = JsonConvert.DeserializeObject<Dictionary<string, BaseTamerData>>(Encoding.UTF8.GetString(Assets.tamers), new TamerDataConverter());
             TAMERS_BY_ID = new Dictionary<short, TamerData>();
             TAMER_NAMES_BY_ID = new Dictionary<short, string>();
             short idCounter = 0;
-            foreach (var kvp in tempDict)
+            foreach (var kvp in tempTamersDict)
             {
                 TAMERS_BY_ID[idCounter] = kvp.Value as TamerData;
                 TAMER_NAMES_BY_ID[idCounter] = kvp.Key;

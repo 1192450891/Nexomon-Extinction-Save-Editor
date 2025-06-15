@@ -36,23 +36,6 @@ namespace Save_Editor.Models {
         public          int                                 volumeSFX       { get; set; }
         public          bool                                autoSaveEnabled { get; set; }
         public          string                              languageId      { get; set; }
-        
-
-
-        public int q1 { get; set; }
-
-
-        public string total_coins_accumulated_Str { get; set; }
-        public          int                                 totalCoinsAccumulated { get; set; }
-        public string total_coins_spent_Str { get; set; }
-        public          int                                 totalCoinsSpent  { get; set; }
-        public string total_boulders_broken_Str { get; set; }
-        public          int                                 totalBouldersBroken { get; set; }
-        public string total_meals_tossedd_Str { get; set; }
-        public          int                                 totalMealsTossedd { get; set; }
-        public string total_shards_sold_Str { get; set; }
-        public          int                                 totalShardsSold  { get; set; }
-        
         public          ObservableCollection<Monster>       party           { get; } = new ObservableCollection<Monster>();
         public          ObservableCollection<Box>           storage         { get; } = new ObservableCollection<Box>();
         public          ObservableCollection<InventoryItem> items           { get; } = new ObservableCollection<InventoryItem>();
@@ -61,12 +44,31 @@ namespace Save_Editor.Models {
         public         ObservableCollection<BeatenTamer>    beatenTamers    { get; } = new ObservableCollection<BeatenTamer>();
         
         public          int                                 miningCount     { get; set; }
-        public         ObservableCollection<Mineral>        minerals       { get; } = new ObservableCollection<Mineral>();
+        public         ObservableCollection<Mineral>        minerals        { get; } = new ObservableCollection<Mineral>();
+        
+        public          int                                 rematcherCount   { get; set; }
+        
+        public         ObservableCollection<RematchBeatenTamer>   rematchBeatenTamers  { get; } = new ObservableCollection<RematchBeatenTamer>();
+        
+        public          string                              total_coins_accumulated_Str { get; set; }
+        public          int                                 totalCoinsAccumulated       { get; set; }
+        public          string                              total_coins_spent_Str       { get; set; }
+        public          int                                 totalCoinsSpent             { get; set; }
+        public          string                              total_boulders_broken_Str   { get; set; }
+        public          int                                 totalBouldersBroken         { get; set; }
+        public          string                              total_meals_tossedd_Str     { get; set; }
+        public          int                                 totalMealsTossedd           { get; set; }
+        public          string                              total_shards_sold_Str       { get; set; }
+        public          int                                 totalShardsSold             { get; set; }
+        public          int                                 achievementCount      { get; set; }
+        public          List<int>                           achievementIdList      { get; } = new List<int>();
+        public          int                                 completedMissionsCount      { get; set; }
+        public         ObservableCollection<CompletedMission>   completedMissionList  { get; } = new ObservableCollection<CompletedMission>();
+        
+        
         
         public readonly List<byte> remainderBytes;
         
-        //public         Rematcher                       rematcher;
-        //public         Achievements                    achievements;
         //public         PermanentlyDestroyedEntities    permanentlyKilledEntities;
         //private        Dictionary<int, bool>           switches;
         //private        Dictionary<int, List<string>>   permanentlyKilledFlags;
@@ -127,7 +129,13 @@ namespace Save_Editor.Models {
             for (var i = miningCount; i > 0; i--) {
                 minerals.Add(reader.ReadMineral());
             }
-            q1 = reader.ReadInt32();
+            
+            rematcherCount = reader.ReadInt32();
+            for (var i = rematcherCount; i > 0; i--) {
+                rematchBeatenTamers.Add(reader.ReadRematchBeatenTamers());
+            }
+            
+            var valueEqual5 = reader.ReadInt32(); //代表后面有5组类似的 字符串加值的结构？
             total_coins_accumulated_Str = reader.ReadString();
             totalCoinsAccumulated = reader.ReadInt32();
             total_coins_spent_Str = reader.ReadString();
@@ -138,7 +146,42 @@ namespace Save_Editor.Models {
             totalMealsTossedd = reader.ReadInt32();
             total_shards_sold_Str = reader.ReadString();
             totalShardsSold = reader.ReadInt32();
-
+            
+            achievementCount = reader.ReadInt32();
+            for (var i = achievementCount; i > 0; i--) {
+                achievementIdList.Add(reader.ReadInt32());
+            }
+            
+            var qq = reader.ReadInt32();
+            var struct1s = new List<Struct1>();
+            for (var i = qq; i > 0; i--)
+            {
+                struct1s.Add(reader.ReadStruct1());
+            }
+            
+            var qqq = reader.ReadInt32();
+            var struct2 = new List<Struct2>();
+            for (var i = qqq; i > 0; i--)
+            {
+                struct2.Add(reader.ReadStruct2());
+            }
+            var wqeqwe = reader.ReadBoolean();
+            var eee = reader.ReadInt16();
+            var qqqq = reader.ReadInt32();
+            var qqqqq = reader.ReadInt32();
+            var qqqq1 = reader.ReadInt32();
+            var qqqqq1 = reader.ReadInt32();
+            var eee1 = reader.ReadInt16();
+            
+            completedMissionsCount = reader.ReadInt32();
+            for (var i = completedMissionsCount; i > 0; i--) {
+                completedMissionList.Add(reader.ReadCompletedMission());
+            }
+            var qqqqqq1 = reader.ReadInt32();
+            var guessed_number_str = reader.ReadString();
+            var guessed_number = reader.ReadInt32();
+            var defeated_thieves_frozen_tundra_str = reader.ReadString();
+            var defeated_thieves_frozen_tundra = reader.ReadInt32();
             
             // We don't need to save the saveSize since the remainder has what we need to write.
             if (saveSize == null) {
@@ -214,8 +257,12 @@ namespace Save_Editor.Models {
             foreach (var mineral in saveData.minerals) {
                 writer.Write(mineral);
             }
-
-            writer.Write(saveData.q1);
+            
+            writer.Write(saveData.rematcherCount);
+            foreach (var rematchBeatenTamer in saveData.rematchBeatenTamers) {
+                writer.Write(rematchBeatenTamer);
+            }
+            
             writer.Write(saveData.total_coins_accumulated_Str);
             writer.Write(saveData.totalCoinsAccumulated);
             writer.Write(saveData.total_coins_spent_Str);
