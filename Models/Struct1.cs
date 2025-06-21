@@ -7,9 +7,6 @@ namespace Save_Editor.Models
         public short a1    { get; set; }
         public short a2    { get; set; }
         public bool a3     { get; set; }
-        
-        
-        
     }
     
     public static partial class Extensions {

@@ -123,86 +123,6 @@ namespace Save_Editor {
             CommandBindings.Add(cb);
         }
 
-#if DEBUG
-        private void SetTo80() {
-            foreach (var item in SaveData.items) {
-                if (item.Quantity >= 50 && item.Quantity < 80) item.Quantity = 80;
-            }
-        }
-
-        private void SetCores() {
-            foreach (var monster in SaveData.party) {
-                foreach (var core in monster.cores) {
-                    core.Id = ItemConst.Destruction_Core_III_;
-                }
-
-                var toAdd = 4 - monster.cores.Count;
-                for (var i = 0; i < toAdd; i++) {
-                    monster.cores.Add(ItemConst.Destruction_Core_III_);
-                }
-
-                monster.harmony = 100;
-            }
-
-            foreach (var box in SaveData.storage) {
-                foreach (var monster in box.slots) {
-                    if (monster == null) continue;
-                    monster.harmony = 100;
-                }
-            }
-
-            // Uncomment if you want to set the cores in storage too. Game doesn't normally allow this though.
-            //foreach (var box in saveData.storage) {
-            //    foreach (var monster in box.slots) {
-            //        if (monster == null) continue;
-
-            //        foreach (var core in monster.cores) {
-            //            core.Id = 1161;
-            //        }
-
-            //        var toAdd = 4 - monster.cores.Count;
-            //        for (var i = 0; i < toAdd; i++) {
-            //            monster.cores.Add(1161);
-            //        }
-            //    }
-            //}
-        }
-
-        private void Resort() {
-            using var monsterLists = GetAllMonsters()
-                                     .OrderBy(monster => monster.monsterId)
-                                     .ChunkIntoToLists(Box.SIZE)
-                                     .GetEnumerator();
-
-            foreach (var box in SaveData.storage) {
-                int remainder;
-
-                // if we run out of monsters, we need to null the whole box.
-                if (!monsterLists.MoveNext()) {
-                    remainder = Box.SIZE;
-                    goto nullTheRemainder;
-                }
-
-                var monsterList = monsterLists.Current;
-
-                for (var m = 0; m < monsterList!.Count; m++) {
-                    box.slots[m] = monsterList[m];
-                }
-
-                remainder = Box.SIZE - monsterList!.Count; // If there were 57 in the list, remainder is 3 (60 - 57).
-
-                if (remainder == 0) continue;
-
-                nullTheRemainder:
-                for (var i = Box.SIZE - remainder; i < Box.SIZE; i++) { // Start at 57 and to to 60.
-                    box.slots[i] = null;
-                }
-
-                box.OnPropertyChanged(nameof(box.slots));
-            }
-        }
-#endif
-
         private void FullAllItems()
         {
             SaveData.items.Clear();
@@ -286,11 +206,15 @@ namespace Save_Editor {
             }
         }
 
-        private IEnumerable<Monster> GetAllMonsters() {
-            return from box in SaveData.storage
-                   from monster in box.slots
-                   where monster != null
-                   select monster;
+        private void CompleteAllAchievements()
+        {
+            var achievementCount = 56;
+            SaveData.achievementCount = achievementCount;
+            SaveData.achievementIdList.Clear();
+            for (int i = 1; i <= achievementCount; i++)
+            {
+                SaveData.achievementIdList.Add(i);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

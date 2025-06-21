@@ -20,7 +20,7 @@ namespace Save_Editor.Models {
         public          string                              buildDate       { get; }
         public          string                              buildTarget     { get; }
         public          string                              buildVersion    { get; }
-        public          string                              saveDateUtc     { get; set; }
+        public          string                              saveDateUtc     { get; }
         public          string                              playerName      { get; set; }
         public          string                              playerBody      { get; set; }
         public          string                              petBody         { get; set; }
@@ -28,7 +28,7 @@ namespace Save_Editor.Models {
         public          int                                 mapId           { get; set; }
         public          int                                 playerX         { get; set; }
         public          int                                 playerY         { get; set; }
-        public          string                              playerDirection { get; set; }
+        public          string                              playerDirection { get; }
         public          int                                 checkpointMapId { get; set; }
         public          int                                 checkpointX     { get; set; }
         public          int                                 checkpointY     { get; set; }
@@ -43,29 +43,45 @@ namespace Save_Editor.Models {
         public          int                                 beatenTamerCount{ get; set; }
         public         ObservableCollection<BeatenTamer>    beatenTamers    { get; } = new ObservableCollection<BeatenTamer>();
         
-        public          int                                 miningCount     { get; set; }
+        public          int                                 miningCount     { get; }
         public         ObservableCollection<Mineral>        minerals        { get; } = new ObservableCollection<Mineral>();
         
-        public          int                                 rematcherCount   { get; set; }
-        
+        public          int                                 rematcherCount   { get; }
         public         ObservableCollection<RematchBeatenTamer>   rematchBeatenTamers  { get; } = new ObservableCollection<RematchBeatenTamer>();
         
-        public          string                              total_coins_accumulated_Str { get; set; }
+        public          int                                 stringAndInit32CountEqual5  { get; }
+        public          string                              total_coins_accumulated_Str { get; }
         public          int                                 totalCoinsAccumulated       { get; set; }
-        public          string                              total_coins_spent_Str       { get; set; }
+        public          string                              total_coins_spent_Str       { get; }
         public          int                                 totalCoinsSpent             { get; set; }
-        public          string                              total_boulders_broken_Str   { get; set; }
+        public          string                              total_boulders_broken_Str   { get; }
         public          int                                 totalBouldersBroken         { get; set; }
-        public          string                              total_meals_tossedd_Str     { get; set; }
+        public          string                              total_meals_tossedd_Str     { get; }
         public          int                                 totalMealsTossedd           { get; set; }
-        public          string                              total_shards_sold_Str       { get; set; }
+        public          string                              total_shards_sold_Str       { get; }
         public          int                                 totalShardsSold             { get; set; }
-        public          int                                 achievementCount      { get; set; }
-        public          List<int>                           achievementIdList      { get; } = new List<int>();
-        public          int                                 completedMissionsCount      { get; set; }
-        public         ObservableCollection<CompletedMission>   completedMissionList  { get; } = new ObservableCollection<CompletedMission>();
+        public          int                                 achievementCount            { get; set; }
+        public          List<int>                           achievementIdList           { get; } = new List<int>();
+        public          int                                 struct1Count                { get; }
+        public          List<Struct1>                       struct1List                 { get; }
+        public          int                                 struct2Count                { get; }
+        public          List<Struct2>                       struct2List                 { get; }
+        public          Struct3                             struct3                     { get; }
+        public          int                                 completedMissionsCount      { get; }
         
-        
+        public          int                                 stringAndInit32CountEqual2  { get; }
+        public          string                              guessed_number_str          { get; }
+        public          int                                 guessed_number              { get; }
+        public          string                              defeated_thieves_frozen_tundra_str { get; }
+        public          int                                 defeated_thieves_frozen_tundra { get; }
+        public          int                                 struct4Count                { get; }
+        public          List<Struct4>                       struct4List                 { get; } = new List<Struct4>();
+        public          Struct5                                 struct5                 { get; }
+        public          int                                 seenMonstersCount           { get; }
+        public          List<MonsterFlag>                       seenMonstersList        { get; } = new List<MonsterFlag>();
+        public          int                                 ownedMonstersCount          { get; }
+        public          List<MonsterFlag>                       ownedMonsterList        { get; } = new List<MonsterFlag>();
+        public         ObservableCollection<CompletedMission>   completedMissionList    { get; } = new ObservableCollection<CompletedMission>();
         
         public readonly List<byte> remainderBytes;
         
@@ -73,8 +89,6 @@ namespace Save_Editor.Models {
         //private        Dictionary<int, bool>           switches;
         //private        Dictionary<int, List<string>>   permanentlyKilledFlags;
         //private        Dictionary<string, int>         variables;
-        //public         HashSet<DatabaseMonsters.Entry> seenMonsters;
-        //public         HashSet<DatabaseMonsters.Entry> ownedMonsters;
         //private static List<int>                       cadiumMapsWithZieglerMiasma;
 
         public SaveData(BinaryReader reader, bool readPs4PrefixBytes, uint? saveSize) {
@@ -135,7 +149,7 @@ namespace Save_Editor.Models {
                 rematchBeatenTamers.Add(reader.ReadRematchBeatenTamers());
             }
             
-            var valueEqual5 = reader.ReadInt32(); //代表后面有5组类似的 字符串加值的结构？
+            stringAndInit32CountEqual5 = reader.ReadInt32(); //代表后面有5组类似的 字符串加值的结构？
             total_coins_accumulated_Str = reader.ReadString();
             totalCoinsAccumulated = reader.ReadInt32();
             total_coins_spent_Str = reader.ReadString();
@@ -152,36 +166,51 @@ namespace Save_Editor.Models {
                 achievementIdList.Add(reader.ReadInt32());
             }
             
-            var qq = reader.ReadInt32();
-            var struct1s = new List<Struct1>();
-            for (var i = qq; i > 0; i--)
+            struct1Count = reader.ReadInt32();
+            struct1List = new List<Struct1>();
+            for (var i = struct1Count; i > 0; i--)
             {
-                struct1s.Add(reader.ReadStruct1());
+                struct1List.Add(reader.ReadStruct1());
             }
             
-            var qqq = reader.ReadInt32();
-            var struct2 = new List<Struct2>();
-            for (var i = qqq; i > 0; i--)
+            struct2Count = reader.ReadInt32();
+            struct2List = new List<Struct2>();
+            for (var i = struct2Count; i > 0; i--)
             {
-                struct2.Add(reader.ReadStruct2());
+                struct2List.Add(reader.ReadStruct2());
             }
-            var wqeqwe = reader.ReadBoolean();
-            var eee = reader.ReadInt16();
-            var qqqq = reader.ReadInt32();
-            var qqqqq = reader.ReadInt32();
-            var qqqq1 = reader.ReadInt32();
-            var qqqqq1 = reader.ReadInt32();
-            var eee1 = reader.ReadInt16();
+
+            struct3 = reader.ReadStruct3();
+
             
             completedMissionsCount = reader.ReadInt32();
             for (var i = completedMissionsCount; i > 0; i--) {
                 completedMissionList.Add(reader.ReadCompletedMission());
             }
-            var qqqqqq1 = reader.ReadInt32();
-            var guessed_number_str = reader.ReadString();
-            var guessed_number = reader.ReadInt32();
-            var defeated_thieves_frozen_tundra_str = reader.ReadString();
-            var defeated_thieves_frozen_tundra = reader.ReadInt32();
+            stringAndInit32CountEqual2 = reader.ReadInt32();
+            guessed_number_str = reader.ReadString();
+            guessed_number = reader.ReadInt32();
+            defeated_thieves_frozen_tundra_str = reader.ReadString();
+            defeated_thieves_frozen_tundra = reader.ReadInt32();
+            
+            struct4Count = reader.ReadInt32();
+            for (var i = struct4Count; i > 0; i--) {
+                struct4List.Add(reader.ReadStruct4());
+            }
+
+            struct5 = reader.ReadStruct5();
+
+            
+            seenMonstersCount = reader.ReadInt32();
+            for (var i = seenMonstersCount; i > 0; i--)
+            {
+                seenMonstersList.Add(reader.ReadStruct6());
+            }
+            ownedMonstersCount = reader.ReadInt32();
+            for (var i = ownedMonstersCount; i > 0; i--)
+            {
+                ownedMonsterList.Add(reader.ReadStruct6());
+            }
             
             // We don't need to save the saveSize since the remainder has what we need to write.
             if (saveSize == null) {
@@ -262,7 +291,7 @@ namespace Save_Editor.Models {
             foreach (var rematchBeatenTamer in saveData.rematchBeatenTamers) {
                 writer.Write(rematchBeatenTamer);
             }
-            
+            writer.Write(saveData.stringAndInit32CountEqual5);
             writer.Write(saveData.total_coins_accumulated_Str);
             writer.Write(saveData.totalCoinsAccumulated);
             writer.Write(saveData.total_coins_spent_Str);
@@ -274,6 +303,49 @@ namespace Save_Editor.Models {
             writer.Write(saveData.total_shards_sold_Str);
             writer.Write(saveData.totalShardsSold);
             
+            writer.Write(saveData.achievementCount);
+            foreach (var achievementId in saveData.achievementIdList) {
+                writer.Write(achievementId);
+            }
+            
+            writer.Write(saveData.struct1Count);
+            foreach (var struct1 in saveData.struct1List) {
+                writer.Write(struct1);
+            }
+            
+            writer.Write(saveData.struct2Count);
+            foreach (var struct2 in saveData.struct2List) {
+                writer.Write(struct2);
+            }
+            
+            writer.Write(saveData.struct3);
+            
+            writer.Write(saveData.completedMissionsCount);
+            foreach (var completedMission in saveData.completedMissionList) {
+                writer.Write(completedMission);
+            }
+            
+            writer.Write(saveData.stringAndInit32CountEqual2);
+            writer.Write(saveData.guessed_number_str);
+            writer.Write(saveData.guessed_number);
+            writer.Write(saveData.defeated_thieves_frozen_tundra_str);
+            writer.Write(saveData.defeated_thieves_frozen_tundra);
+
+            writer.Write(saveData.struct4Count);
+            foreach (var struct4 in saveData.struct4List) {
+                writer.Write(struct4);
+            }
+            
+            writer.Write(saveData.struct5);
+            
+            writer.Write(saveData.seenMonstersCount);
+            foreach (var struct6 in saveData.seenMonstersList) {
+                writer.Write(struct6);
+            }
+            writer.Write(saveData.ownedMonstersCount);
+            foreach (var struct6 in saveData.ownedMonsterList) {
+                writer.Write(struct6);
+            }
             foreach (var b in saveData.remainderBytes) {
                 writer.Write(b);
             }

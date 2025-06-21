@@ -16,7 +16,7 @@ namespace Save_Editor.Models
     public static partial class Extensions {
         public static Struct2 ReadStruct2(this BinaryReader reader)
         {
-            var Struct2 = new Struct2
+            var struct2 = new Struct2
             {
                 a1 = reader.ReadByte(),
                 a2 = reader.ReadBoolean(),
@@ -24,13 +24,14 @@ namespace Save_Editor.Models
                 a4 = reader.ReadBoolean(),
             };
 
-            return Struct2;
+            return struct2;
         }
 
-        public static void Write(this BinaryWriter writer, Struct2 Struct2) {
-            writer.Write(Struct2.a1);
-            writer.Write(Struct2.a2);
-            writer.Write(Struct2.a3);
+        public static void Write(this BinaryWriter writer, Struct2 struct2) {
+            writer.Write(struct2.a1);
+            writer.Write(struct2.a2);
+            writer.Write(struct2.a3);
+            writer.Write(struct2.a4);
         }
     }
 }
