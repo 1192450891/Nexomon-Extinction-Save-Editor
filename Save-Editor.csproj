@@ -22,6 +22,7 @@
 		<None Remove="packages\**"/>
 		<Page Remove="Const-Writer\**"/>
 		<Page Remove="packages\**"/>
+		<Compile Remove="Models\MonsterId.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Save_Editor {
@@ -76,6 +78,22 @@ namespace Save_Editor {
             }
 
             if (list.Count > 0) yield return list;
+        }
+        public static void Sort<TSource, TKey>(this Collection<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            List<TSource> sortedList = source.OrderBy(keySelector).ToList();
+            source.Clear();
+            foreach (var sortedItem in sortedList)
+                source.Add(sortedItem);
+        }
+
+        public static void Sort<T>(this ObservableCollection<T> collection) where T : IComparable
+        {
+            List<T> sortedList = collection.OrderBy(x => x).ToList();
+            for(int i = 0;i<sortedList.Count();i++)
+            {
+                collection.Move(collection.IndexOf(sortedList[i]), i);
+            }
         }
     }
 }

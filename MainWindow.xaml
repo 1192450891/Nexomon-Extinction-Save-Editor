@@ -293,6 +293,50 @@
                              Margin="8"
                              VerticalAlignment="Center"
                              Text="{Binding SaveData.totalShardsSold, UpdateSourceTrigger=PropertyChanged}"/>
+                                        
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="2"
+                               Margin="8"
+                               VerticalAlignment="Center"
+                               Text="不朽城堡猜测的数字:"/>
+                    <TextBox Grid.Row="5"
+                             Grid.Column="3"
+                             Margin="8"
+                             VerticalAlignment="Center"
+                             Text="{Binding SaveData.guessed_number, UpdateSourceTrigger=PropertyChanged}"/>
+                                        
+                    <TextBlock Grid.Row="6"
+                               Grid.Column="2"
+                               Margin="8"
+                               VerticalAlignment="Center"
+                               Text="冰原打败的盗贼数量:"/>
+                    <TextBox Grid.Row="6"
+                             Grid.Column="3"
+                             Margin="8"
+                             VerticalAlignment="Center"
+                             Text="{Binding SaveData.defeated_thieves_frozen_tundra, UpdateSourceTrigger=PropertyChanged}"/>
+                                        
+                    <TextBlock Grid.Row="7"
+                               Grid.Column="2"
+                               Margin="8"
+                               VerticalAlignment="Center"
+                               Text="遇见的怪物数量:"/>
+                    <TextBox Grid.Row="7"
+                             Grid.Column="3"
+                             Margin="8"
+                             VerticalAlignment="Center"
+                             Text="{Binding SaveData.seenMonstersCount, UpdateSourceTrigger=PropertyChanged}"/>
+                                        
+                    <TextBlock Grid.Row="8"
+                               Grid.Column="2"
+                               Margin="8"
+                               VerticalAlignment="Center"
+                               Text="拥有的怪物数量:"/>
+                    <TextBox Grid.Row="8"
+                             Grid.Column="3"
+                             Margin="8"
+                             VerticalAlignment="Center"
+                             Text="{Binding SaveData.ownedMonstersCount, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </TabItem>
             <TabItem>

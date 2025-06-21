@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -68,20 +69,19 @@ namespace Save_Editor.Models {
         public          List<Struct2>                       struct2List                 { get; }
         public          Struct3                             struct3                     { get; }
         public          int                                 completedMissionsCount      { get; }
-        
+        public         ObservableCollection<CompletedMission>   completedMissionList    { get; } = new ObservableCollection<CompletedMission>();
         public          int                                 stringAndInit32CountEqual2  { get; }
         public          string                              guessed_number_str          { get; }
-        public          int                                 guessed_number              { get; }
+        public          int                                 guessed_number              { get; set; }
         public          string                              defeated_thieves_frozen_tundra_str { get; }
-        public          int                                 defeated_thieves_frozen_tundra { get; }
+        public          int                                 defeated_thieves_frozen_tundra { get; set; }
         public          int                                 struct4Count                { get; }
         public          List<Struct4>                       struct4List                 { get; } = new List<Struct4>();
-        public          Struct5                                 struct5                 { get; }
-        public          int                                 seenMonstersCount           { get; }
-        public          List<MonsterFlag>                       seenMonstersList        { get; } = new List<MonsterFlag>();
-        public          int                                 ownedMonstersCount          { get; }
-        public          List<MonsterFlag>                       ownedMonsterList        { get; } = new List<MonsterFlag>();
-        public         ObservableCollection<CompletedMission>   completedMissionList    { get; } = new ObservableCollection<CompletedMission>();
+        public          Struct5                             struct5                     { get; }
+        public          int                                 seenMonstersCount           { get; set; }
+        public          List<short>                         seenMonsterIdList            { get; } = new List<short>();
+        public          int                                 ownedMonstersCount          { get; set; }
+        public          List<short>                         ownedMonsterIdList            { get; } = new List<short>();
         
         public readonly List<byte> remainderBytes;
         
@@ -181,12 +181,13 @@ namespace Save_Editor.Models {
             }
 
             struct3 = reader.ReadStruct3();
-
             
             completedMissionsCount = reader.ReadInt32();
             for (var i = completedMissionsCount; i > 0; i--) {
                 completedMissionList.Add(reader.ReadCompletedMission());
             }
+            // completedMissionList.Sort(w=>w.id);
+
             stringAndInit32CountEqual2 = reader.ReadInt32();
             guessed_number_str = reader.ReadString();
             guessed_number = reader.ReadInt32();
@@ -199,17 +200,16 @@ namespace Save_Editor.Models {
             }
 
             struct5 = reader.ReadStruct5();
-
             
             seenMonstersCount = reader.ReadInt32();
             for (var i = seenMonstersCount; i > 0; i--)
             {
-                seenMonstersList.Add(reader.ReadStruct6());
+                seenMonsterIdList.Add(reader.ReadInt16());
             }
             ownedMonstersCount = reader.ReadInt32();
             for (var i = ownedMonstersCount; i > 0; i--)
             {
-                ownedMonsterList.Add(reader.ReadStruct6());
+                ownedMonsterIdList.Add(reader.ReadInt16());
             }
             
             // We don't need to save the saveSize since the remainder has what we need to write.
@@ -339,13 +339,19 @@ namespace Save_Editor.Models {
             writer.Write(saveData.struct5);
             
             writer.Write(saveData.seenMonstersCount);
-            foreach (var struct6 in saveData.seenMonstersList) {
-                writer.Write(struct6);
+            for (var i = 0; i < saveData.seenMonsterIdList.Count && i < saveData.seenMonstersCount; i++)
+            {
+                var seenMonsterId = saveData.seenMonsterIdList[i];
+                writer.Write(seenMonsterId);
             }
+
             writer.Write(saveData.ownedMonstersCount);
-            foreach (var struct6 in saveData.ownedMonsterList) {
-                writer.Write(struct6);
+            for (var i = 0; i < saveData.ownedMonsterIdList.Count && i < saveData.ownedMonstersCount; i++)
+            {
+                var ownedMonsterId = saveData.ownedMonsterIdList[i];
+                writer.Write(ownedMonsterId);
             }
+
             foreach (var b in saveData.remainderBytes) {
                 writer.Write(b);
             }
