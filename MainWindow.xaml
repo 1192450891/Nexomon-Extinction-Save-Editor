@@ -384,6 +384,87 @@
                     </TabControl.ContentTemplate>
                 </TabControl>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="一键修改"/>
+                </TabItem.Header>
+    
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!-- Double the height of each row -->
+                        <RowDefinition Height="2*"/>  <!-- Row 0 (was 1*) -->
+                        <RowDefinition Height="Auto"/> <!-- Spacer row if needed -->
+                        <RowDefinition Height="Auto"/> <!-- Spacer row if needed -->
+                        <RowDefinition Height="2*"/>  <!-- Row 3 (was 1*) -->
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />  <!-- Row 4 (was 1*) -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button 
+                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                        Content="一键应用所有修改功能" 
+                        Margin="5"
+                        Click="ModifyAll"
+                        FontSize="16"/>
+                    <Button 
+                        Grid.Row="3" Grid.Column="0"
+                        Content="获得全物品" 
+                        Margin="5"
+                        Click="FullAllItems"
+                        FontSize="14"/> 
+                    <Button 
+                        Grid.Row="3" Grid.Column="1"
+                        Content="获得全宠物" 
+                        Margin="5"
+                        Click="AddTheBoxWithAllMonsters"
+                        FontSize="14"/> 
+                    <Button 
+                        Grid.Row="4" Grid.Column="0"
+                        Content="击败所有训练师两次" 
+                        Margin="5"
+                        Click="BeatAllTamers"
+                        ToolTip="（为了完成Steam成就）"
+                        FontSize="14"/> 
+                    <Button 
+                        Grid.Row="4" Grid.Column="1"
+                        Content="完成所有任务" 
+                        Margin="5"
+                        Click="CompleteAllMissions"
+                        FontSize="14"/> 
+                    <Button 
+                        Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+                        Content="另存为存档" 
+                        Margin="5"
+                        Click="SaveFile"
+                        FontSize="14"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="其他"/>
+                </TabItem.Header>
+                <TextBox 
+                    Margin="10"
+                    TextWrapping="Wrap"
+                    IsReadOnly="True"
+                    VerticalScrollBarVisibility="Auto"
+                    FontSize="14"
+                    Text="
+该编辑器在Nexomon-Extinction-Save-Editor的基础上增加了更多功能。&#x0a;
+我对软件进行了汉化且解析了所有的剩余数据，添加了更多的修改功能。&#x0a;
+有任何问题请在GitHub上留言。&#x0a;
+GitHub地址:   https://github.com/1192450891/Nexomon-Extinction-Save-Editor
+"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

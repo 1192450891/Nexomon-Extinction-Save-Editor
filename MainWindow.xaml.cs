@@ -39,10 +39,10 @@ namespace Save_Editor {
             // SetupAppWideBinding(new KeyGesture(Key.J, ModifierKeys.Control), SetCores); // Ctrl+J.
             // SetupAppWideBinding(new KeyGesture(Key.L, ModifierKeys.Control | ModifierKeys.Alt), Resort); // Ctrl+Alt+L.
             
-            SetupAppWideBinding(new KeyGesture(Key.Q, ModifierKeys.Control), FullAllItems ); // Ctrl+Q.
-            SetupAppWideBinding(new KeyGesture(Key.W, ModifierKeys.Control), AddTheBoxWithAllMonsters); // Ctrl+W.
-            SetupAppWideBinding(new KeyGesture(Key.E, ModifierKeys.Control), BeatAllTamers); // Ctrl+E.
-            SetupAppWideBinding(new KeyGesture(Key.R, ModifierKeys.Control), CompleteAllMissions); // Ctrl+R.
+            // SetupAppWideBinding(new KeyGesture(Key.Q, ModifierKeys.Control), FullAllItems ); // Ctrl+Q.
+            // SetupAppWideBinding(new KeyGesture(Key.W, ModifierKeys.Control), AddTheBoxWithAllMonsters); // Ctrl+W.
+            // SetupAppWideBinding(new KeyGesture(Key.E, ModifierKeys.Control), BeatAllTamers); // Ctrl+E.
+            // SetupAppWideBinding(new KeyGesture(Key.R, ModifierKeys.Control), CompleteAllMissions); // Ctrl+R.
         }
 
         private bool LoadFile() {
@@ -78,7 +78,10 @@ namespace Save_Editor {
 
             return true;
         }
-
+        private void SaveFile(object sender, RoutedEventArgs routedEventArgs)
+        {
+            SaveFile();
+        }
         private void SaveFile() {
             var target = GetSaveTarget();
             if (string.IsNullOrEmpty(target)) return;
@@ -124,6 +127,26 @@ namespace Save_Editor {
             CommandBindings.Add(cb);
         }
 
+        private void ModifyAll(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ModifyAll();
+            MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void ModifyAll()
+        {
+            FullAllItems();
+            AddTheBoxWithAllMonsters();
+            BeatAllTamers();
+            CompleteAllMissions();
+        }
+
+        private void FullAllItems(object sender, RoutedEventArgs routedEventArgs)
+        {
+            FullAllItems();
+            MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         private void FullAllItems()
         {
             SaveData.items.Clear();
@@ -136,6 +159,12 @@ namespace Save_Editor {
                 };
                 SaveData.items.Add(item);
             }
+        }
+
+        private void AddTheBoxWithAllMonsters(object sender, RoutedEventArgs routedEventArgs)
+        {
+            AddTheBoxWithAllMonsters();
+            MessageBox.Show("修改成功！（仓库里添加了一个全宠物箱子）", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void AddTheBoxWithAllMonsters()
@@ -190,6 +219,12 @@ namespace Save_Editor {
             SaveData.storage.Add(newBox);
         }
 
+        private void BeatAllTamers(object sender, RoutedEventArgs routedEventArgs)
+        {
+            BeatAllTamers();
+            MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         private void BeatAllTamers()
         {
             SaveData.beatenTamers.Clear();
@@ -207,6 +242,12 @@ namespace Save_Editor {
             }
         }
 
+        private void CompleteAllAchievements(object sender, RoutedEventArgs routedEventArgs)
+        {
+            CompleteAllAchievements();
+            MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         private void CompleteAllAchievements()
         {
             var achievementCount = 56;
@@ -217,11 +258,17 @@ namespace Save_Editor {
                 SaveData.achievementIdList.Add(i);
             }
         }
-        
+
+        private void CompleteAllMissions(object sender, RoutedEventArgs routedEventArgs)
+        {
+            CompleteAllMissions();
+            MessageBox.Show("修改成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         private void CompleteAllMissions()
         {
             saveData.completedMissionList.Clear();
-            saveData.completedMissionsCount = 1002;
+            saveData.completedMissionsCount = 1002; // 不知道任务的数据 实际并不是1-1002每个id都有的
             for (int i = 1; i <= saveData.completedMissionsCount; i++)
             {
                 var completedMission = new CompletedMission
