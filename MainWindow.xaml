@@ -350,12 +350,12 @@
                           ItemsSource="{Binding SaveData.items, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridComboBoxColumn DisplayMemberPath="Value"
-                                                Header="Name"
+                                                Header="名称"
                                                 ItemsSource="{x:Static local:Data.ITEM_NAMES_BY_ID}"
                                                 SelectedValueBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"
                                                 SelectedValuePath="Key"/>
                         <DataGridTextColumn Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
-                                            Header="Quantity"/>
+                                            Header="数量"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

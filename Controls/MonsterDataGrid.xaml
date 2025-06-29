@@ -18,23 +18,23 @@
                                 SelectedValueBinding="{Binding monsterId, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedValuePath="Key"/>
         <DataGridTextColumn Binding="{Binding nickname, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Nickname"/>
+                            Header="名称"/>
         <DataGridTextColumn Binding="{Binding level, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Level"/>
+                            Header="等级"/>
         <DataGridTextColumn Binding="{Binding EvolutionLevel}"
-                            Header="Next Evolution Level&#x0a;(Reference Only)"
+                            Header="下一次进化等级&#x0a;(只读)"
                             IsReadOnly="True"/>
         <DataGridTextColumn Binding="{Binding EvolutionTarget}"
-                            Header="Next Evolution Target&#x0a;(Reference Only)"
+                            Header="下一次进化目标&#x0a;(只读)"
                             IsReadOnly="True"/>
         <DataGridTextColumn Binding="{Binding hp, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Hp"/>
+                            Header="血量"/>
         <DataGridTextColumn Binding="{Binding sta, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Sta"/>
+                            Header="精力"/>
         <DataGridTextColumn Binding="{Binding exp, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Exp"/>
+                            Header="经验值"/>
         <DataGridTemplateColumn Width="150"
-                                Header="Skills">
+                                Header="技能">
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                     <local:SkillsDataGrid ItemsSource="{Binding skills}"/>
@@ -42,7 +42,7 @@
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
         <DataGridTemplateColumn Width="150"
-                                Header="Cores">
+                                Header="核心">
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                     <local:CoresDataGrid ItemsSource="{Binding cores}"/>
@@ -50,8 +50,8 @@
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
         <DataGridCheckBoxColumn Binding="{Binding cosmic, UpdateSourceTrigger=PropertyChanged}"
-                                Header="Is Cosmic"/>
+                                Header="是否异色"/>
         <DataGridTextColumn Binding="{Binding harmony, UpdateSourceTrigger=PropertyChanged}"
-                            Header="Harmony"/>
+                            Header="和睦值"/>
     </DataGrid.Columns>
 </DataGrid>
