@@ -1,4 +1,4 @@
-Nexomon: 重生 存档编辑器（正在开发中 预计还需要2周完成）
+Nexomon: 重生 存档编辑器
 ---
 
 该编辑器在Nexomon-Extinction-Save-Editor的基础上增加了更多功能（以下基本基于原版的readme 我进行了翻译以及新功能说明）
@@ -19,7 +19,7 @@ Nexomon: 重生 存档编辑器（正在开发中 预计还需要2周完成）
 如何使用：
 ---
 
-运行Debug文件夹中的exe文件或使用编译器运行源代码</br>
+运行根目录下的Save-Editor.exe文件或使用编译器运行源代码</br>
 会打开一个选择窗口请选择游戏的存档.dat文件</br>
 编辑完成后使用Ctrl+S保存存档文件
 
@@ -42,21 +42,10 @@ PS4</br>
 列出尚未包括的事项，我可能会在某个时候讨论这些事项：</br>
 "（作者最后一次提交是三年前了 我来助你！）</br>
 （每个训练师击败两次和抓所有怪真的很无聊- - ，为了保护大家的肝！）"</br>
-BeatenTamers                    beatenTamers;(击败的训练家 已解析！)</br>
-Mining                          mining;(挖矿数据 已解析！)</br>
-Rematcher                       rematcher;(再次遇到的训练师数据 已解析！)</br>
-Achievements                    achievements;</br>
-PermanentlyDestroyedEntities    permanentlyKilledEntities;</br>
-"Dictionary<int, bool>           switches;"</br>
-"Dictionary<int, List<string>>   permanentlyKilledFlags;"</br>
-"Dictionary<string, int>         variables;"</br>
-HashSet<DatabaseMonsters.Entry> seenMonsters;</br>
-HashSet<DatabaseMonsters.Entry> ownedMonsters;</br>
-List<int>                       cadiumMapsWithZieglerMiasma;</br>
+全部数据已解析！
 ```
 
-项目中有一个010模板可以作为存档的开头</br>
-[Save-Template.bt](Save-Template.bt)
+项目中的Save文件夹中有进度100%存档</br>
 ```
 崩溃
 ---
