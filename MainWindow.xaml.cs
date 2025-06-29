@@ -220,9 +220,16 @@ namespace Save_Editor {
         
         private void CompleteAllMissions()
         {
-            foreach (var completedMission in saveData.completedMissionList)
+            saveData.completedMissionList.Clear();
+            saveData.completedMissionsCount = 1002;
+            for (int i = 1; i <= saveData.completedMissionsCount; i++)
             {
-                completedMission.isDone = true;
+                var completedMission = new CompletedMission
+                {
+                    id = (short)i,
+                    isDone = true
+                };
+                saveData.completedMissionList.Add(completedMission);
             }
         }
 

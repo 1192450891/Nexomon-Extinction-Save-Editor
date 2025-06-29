@@ -57,7 +57,7 @@ namespace Save_Editor.Models {
         public          int                                 struct2Count                { get; }
         public          List<Struct2>                       struct2List                 { get; }
         public          Struct3                             struct3                     { get; }
-        public          int                                 completedMissionsCount      { get; }
+        public          int                                 completedMissionsCount { get; set; }
         public         ObservableCollection<CompletedMission>   completedMissionList    { get; } = new ObservableCollection<CompletedMission>();
         public          int                                 struct4Count                { get; }
         public          List<Struct4>                       struct4List                 { get; } = new List<Struct4>();
