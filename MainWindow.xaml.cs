@@ -42,6 +42,7 @@ namespace Save_Editor {
             SetupAppWideBinding(new KeyGesture(Key.Q, ModifierKeys.Control), FullAllItems ); // Ctrl+Q.
             SetupAppWideBinding(new KeyGesture(Key.W, ModifierKeys.Control), AddTheBoxWithAllMonsters); // Ctrl+W.
             SetupAppWideBinding(new KeyGesture(Key.E, ModifierKeys.Control), BeatAllTamers); // Ctrl+E.
+            SetupAppWideBinding(new KeyGesture(Key.R, ModifierKeys.Control), CompleteAllMissions); // Ctrl+R.
         }
 
         private bool LoadFile() {
@@ -214,6 +215,14 @@ namespace Save_Editor {
             for (int i = 1; i <= achievementCount; i++)
             {
                 SaveData.achievementIdList.Add(i);
+            }
+        }
+        
+        private void CompleteAllMissions()
+        {
+            foreach (var completedMission in saveData.completedMissionList)
+            {
+                completedMission.isDone = true;
             }
         }
 

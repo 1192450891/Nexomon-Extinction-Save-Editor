@@ -49,35 +49,20 @@ namespace Save_Editor.Models {
         
         public          int                                 rematcherCount   { get; }
         public         ObservableCollection<RematchBeatenTamer>   rematchBeatenTamers  { get; } = new ObservableCollection<RematchBeatenTamer>();
-        
-        public          int                                 stringAndInit32CountEqual5  { get; }
-        public          string                              total_coins_accumulated_Str { get; }
-        public          int                                 totalCoinsAccumulated       { get; set; }
-        public          string                              total_coins_spent_Str       { get; }
-        public          int                                 totalCoinsSpent             { get; set; }
-        public          string                              total_boulders_broken_Str   { get; }
-        public          int                                 totalBouldersBroken         { get; set; }
-        public          string                              total_meals_tossedd_Str     { get; }
-        public          int                                 totalMealsTossedd           { get; set; }
-        public          string                              total_shards_sold_Str       { get; }
-        public          int                                 totalShardsSold             { get; set; }
+        public          StringAndInt32ListWrap              stringAndInt32ListWrap      { get; } = new StringAndInt32ListWrap();
         public          int                                 achievementCount            { get; set; }
         public          List<int>                           achievementIdList           { get; } = new List<int>();
-        public          int                                 struct1Count                { get; }
-        public          List<Struct1>                       struct1List                 { get; }
+        public          int                                 equipmentRecordCount        { get; }
+        public          List<EquipmentRecord>               equipmentRecordList         { get; }
         public          int                                 struct2Count                { get; }
         public          List<Struct2>                       struct2List                 { get; }
         public          Struct3                             struct3                     { get; }
         public          int                                 completedMissionsCount      { get; }
         public         ObservableCollection<CompletedMission>   completedMissionList    { get; } = new ObservableCollection<CompletedMission>();
-        public          int                                 stringAndInit32CountEqual2  { get; }
-        public          string                              guessed_number_str          { get; }
-        public          int                                 guessed_number              { get; set; }
-        public          string                              defeated_thieves_frozen_tundra_str { get; }
-        public          int                                 defeated_thieves_frozen_tundra { get; set; }
         public          int                                 struct4Count                { get; }
         public          List<Struct4>                       struct4List                 { get; } = new List<Struct4>();
-        public          Struct5                             struct5                     { get; }
+        public          int                                 tombFireCount               { get; }
+        public          List<TombFire>                      tombFireList                    { get; } = new List<TombFire>();
         public          int                                 seenMonstersCount           { get; set; }
         public          List<short>                         seenMonsterIdList            { get; } = new List<short>();
         public          int                                 ownedMonstersCount          { get; set; }
@@ -149,28 +134,18 @@ namespace Save_Editor.Models {
                 rematchBeatenTamers.Add(reader.ReadRematchBeatenTamers());
             }
             
-            stringAndInit32CountEqual5 = reader.ReadInt32(); //代表后面有5组类似的 字符串加值的结构？
-            total_coins_accumulated_Str = reader.ReadString();
-            totalCoinsAccumulated = reader.ReadInt32();
-            total_coins_spent_Str = reader.ReadString();
-            totalCoinsSpent = reader.ReadInt32();
-            total_boulders_broken_Str = reader.ReadString();
-            totalBouldersBroken = reader.ReadInt32();
-            total_meals_tossedd_Str = reader.ReadString();
-            totalMealsTossedd = reader.ReadInt32();
-            total_shards_sold_Str = reader.ReadString();
-            totalShardsSold = reader.ReadInt32();
+            stringAndInt32ListWrap.Add(reader.ReadStringAndInt32List());
             
             achievementCount = reader.ReadInt32();
             for (var i = achievementCount; i > 0; i--) {
                 achievementIdList.Add(reader.ReadInt32());
             }
             
-            struct1Count = reader.ReadInt32();
-            struct1List = new List<Struct1>();
-            for (var i = struct1Count; i > 0; i--)
+            equipmentRecordCount = reader.ReadInt32();
+            equipmentRecordList = new List<EquipmentRecord>();
+            for (var i = equipmentRecordCount; i > 0; i--)
             {
-                struct1List.Add(reader.ReadStruct1());
+                equipmentRecordList.Add(reader.ReadStruct1());
             }
             
             struct2Count = reader.ReadInt32();
@@ -188,18 +163,17 @@ namespace Save_Editor.Models {
             }
             // completedMissionList.Sort(w=>w.id);
 
-            stringAndInit32CountEqual2 = reader.ReadInt32();
-            guessed_number_str = reader.ReadString();
-            guessed_number = reader.ReadInt32();
-            defeated_thieves_frozen_tundra_str = reader.ReadString();
-            defeated_thieves_frozen_tundra = reader.ReadInt32();
+            stringAndInt32ListWrap.Add(reader.ReadStringAndInt32List());
             
             struct4Count = reader.ReadInt32();
             for (var i = struct4Count; i > 0; i--) {
                 struct4List.Add(reader.ReadStruct4());
             }
 
-            struct5 = reader.ReadStruct5();
+            tombFireCount = reader.ReadInt32();
+            for (var i = tombFireCount; i > 0; i--) {
+                tombFireList.Add(reader.ReadTombFire());
+            }
             
             seenMonstersCount = reader.ReadInt32();
             for (var i = seenMonstersCount; i > 0; i--)
@@ -291,25 +265,17 @@ namespace Save_Editor.Models {
             foreach (var rematchBeatenTamer in saveData.rematchBeatenTamers) {
                 writer.Write(rematchBeatenTamer);
             }
-            writer.Write(saveData.stringAndInit32CountEqual5);
-            writer.Write(saveData.total_coins_accumulated_Str);
-            writer.Write(saveData.totalCoinsAccumulated);
-            writer.Write(saveData.total_coins_spent_Str);
-            writer.Write(saveData.totalCoinsSpent);
-            writer.Write(saveData.total_boulders_broken_Str);
-            writer.Write(saveData.totalBouldersBroken);
-            writer.Write(saveData.total_meals_tossedd_Str);
-            writer.Write(saveData.totalMealsTossedd);
-            writer.Write(saveData.total_shards_sold_Str);
-            writer.Write(saveData.totalShardsSold);
+            
+            saveData.stringAndInt32ListWrap.Reset();
+            writer.Write(saveData.stringAndInt32ListWrap);
             
             writer.Write(saveData.achievementCount);
             foreach (var achievementId in saveData.achievementIdList) {
                 writer.Write(achievementId);
             }
             
-            writer.Write(saveData.struct1Count);
-            foreach (var struct1 in saveData.struct1List) {
+            writer.Write(saveData.equipmentRecordCount);
+            foreach (var struct1 in saveData.equipmentRecordList) {
                 writer.Write(struct1);
             }
             
@@ -324,19 +290,17 @@ namespace Save_Editor.Models {
             foreach (var completedMission in saveData.completedMissionList) {
                 writer.Write(completedMission);
             }
-            
-            writer.Write(saveData.stringAndInit32CountEqual2);
-            writer.Write(saveData.guessed_number_str);
-            writer.Write(saveData.guessed_number);
-            writer.Write(saveData.defeated_thieves_frozen_tundra_str);
-            writer.Write(saveData.defeated_thieves_frozen_tundra);
+
+            writer.Write(saveData.stringAndInt32ListWrap);
 
             writer.Write(saveData.struct4Count);
             foreach (var struct4 in saveData.struct4List) {
                 writer.Write(struct4);
             }
-            
-            writer.Write(saveData.struct5);
+            writer.Write(saveData.tombFireCount);
+            foreach (var tombFire in saveData.tombFireList) {
+                writer.Write(tombFire);
+            }
             
             writer.Write(saveData.seenMonstersCount);
             for (var i = 0; i < saveData.seenMonsterIdList.Count && i < saveData.seenMonstersCount; i++)

@@ -4,12 +4,9 @@ namespace Save_Editor.Models
 {
     public class Struct2 : NotifyPropertyChangedImpl 
     {
-        public byte a1    { get; set; }
+        public short id    { get; set; }
         public bool a2    { get; set; }
-        public byte a3     { get; set; }
-        public bool a4    { get; set; }
-        
-        
+        public bool a3    { get; set; }
         
     }
     
@@ -18,20 +15,18 @@ namespace Save_Editor.Models
         {
             var struct2 = new Struct2
             {
-                a1 = reader.ReadByte(),
+                id = reader.ReadInt16(),
                 a2 = reader.ReadBoolean(),
-                a3 = reader.ReadByte(),
-                a4 = reader.ReadBoolean(),
+                a3 = reader.ReadBoolean()
             };
 
             return struct2;
         }
 
         public static void Write(this BinaryWriter writer, Struct2 struct2) {
-            writer.Write(struct2.a1);
+            writer.Write(struct2.id);
             writer.Write(struct2.a2);
             writer.Write(struct2.a3);
-            writer.Write(struct2.a4);
         }
     }
 }

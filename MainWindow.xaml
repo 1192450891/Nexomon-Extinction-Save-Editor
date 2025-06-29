@@ -248,7 +248,7 @@
                              Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.totalCoinsAccumulated, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.stringAndInt32ListWrap.totalCoinsAccumulated, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Grid.Row="1"
                                Grid.Column="2"
@@ -259,7 +259,7 @@
                              Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.totalCoinsSpent, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.stringAndInt32ListWrap.totalCoinsSpent, UpdateSourceTrigger=PropertyChanged}"/>
                     
                     <TextBlock Grid.Row="2"
                                Grid.Column="2"
@@ -270,7 +270,7 @@
                              Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.totalBouldersBroken, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.stringAndInt32ListWrap.totalBouldersBroken, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Grid.Row="3"
                                Grid.Column="2"
@@ -281,7 +281,7 @@
                              Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.totalMealsTossedd, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.stringAndInt32ListWrap.totalMealsTossedd, UpdateSourceTrigger=PropertyChanged}"/>
                     
                     <TextBlock Grid.Row="4"
                                Grid.Column="2"
@@ -292,7 +292,7 @@
                              Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.totalShardsSold, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.stringAndInt32ListWrap.totalShardsSold, UpdateSourceTrigger=PropertyChanged}"/>
                                         
                     <TextBlock Grid.Row="5"
                                Grid.Column="2"
@@ -303,7 +303,7 @@
                              Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.guessed_number, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.stringAndInt32ListWrap.guessed_number, UpdateSourceTrigger=PropertyChanged}"/>
                                         
                     <TextBlock Grid.Row="6"
                                Grid.Column="2"
@@ -314,7 +314,7 @@
                              Grid.Column="3"
                              Margin="8"
                              VerticalAlignment="Center"
-                             Text="{Binding SaveData.defeated_thieves_frozen_tundra, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SaveData.stringAndInt32ListWrap.defeated_thieves_frozen_tundra, UpdateSourceTrigger=PropertyChanged}"/>
                                         
                     <TextBlock Grid.Row="7"
                                Grid.Column="2"
