@@ -442,7 +442,7 @@
                         FontSize="14"/> 
                     <Button 
                         Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
-                        Content="另存为存档" 
+                        Content="保存存档" 
                         Margin="5"
                         Click="SaveFile"
                         FontSize="14"/>
