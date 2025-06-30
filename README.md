@@ -19,6 +19,11 @@ Nexomon: 重生 存档编辑器
 完成所有任务（主线和支线）</br>
 已获得/花费金币、已打破石头数、食物投喂次数、碎片出售数量等数据修改</br>
 
+效果预览：
+
+![PixPin_2025-06-29_22-20-06](https://github.com/user-attachments/assets/748f5b46-574b-4738-b8c3-a3d7eead8e6c)
+![PixPin_2025-06-29_22-18-58](https://github.com/user-attachments/assets/fa822a11-b3fb-4a51-92da-b24fa4a8948c)
+
 如何使用：
 ---
 
